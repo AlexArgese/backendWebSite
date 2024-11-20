@@ -1,15 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer'; // Importa Nodemailer
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT;
 
-// Configura il middleware CORS
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Dominio del frontend
+  origin: 'https://alexargese.github.io', // Dominio del frontend
   methods: 'GET,POST',
 }));
+
 
 app.use(express.json());
 
@@ -17,8 +20,8 @@ app.use(express.json());
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Puoi usare altri servizi come Outlook o configurare un SMTP personalizzato
   auth: {
-    user: 'argesealex@gmail.com', // Il tuo indirizzo email
-    pass: 'clhhgaieocjakjok', // La password dell'email (usa app password se necessario)
+    user: process.env.EMAIL_USER, // Il tuo indirizzo email
+    pass: process.env.EMAIL_PASS, // La password dell'email (usa app password se necessario)
   },
 });
 
